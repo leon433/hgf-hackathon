@@ -2,12 +2,25 @@
 
 {% block content %}
 
-<h1> Please enter your claims.</h1>
+<h1> Please enter your claim 1 features.</h1>
 
-Claim 1:	<br>
+<form action="" method="post" name="claim1features">
+      
+      <p>
 
-Claim 2:	<br>
+      	Feature 1:	<br>
+      	{{ form.feature1(size=200) }}
 
-Claim 3:	<br>
+		Feature 2:	<br>
+		{{ form.feature2(size=200) }}
+
+		Feature 3:	<br>
+		{{ form.feature3(size=200) }}
+          
+      </p>
+ 
+      <p><input type="submit" value="Submit"></p>
+  </form>
+
 
 {% endblock %}
