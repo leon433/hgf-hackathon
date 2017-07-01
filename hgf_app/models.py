@@ -3,12 +3,13 @@ from hgf_app import db
 
 class FeatureModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    feature = db.Column(db.String, index=True, unique=True)
+
+    feature = db.Column(db.String, index=True, unique=True) #Feature text
 
     # User A
-    disclosureLocationA = db.Column(db.String, index=True, unique=True)
-    isDisclosedA = db.Column(db.Boolean, index=True, unique=True)
-    disclosureOpinionA = db.Column(db.String, index=True, unique=True)
+    disclosureLocationA = db.Column(db.String, index=True, unique=True) #Location of nearest disclosure
+    isDisclosedA = db.Column(db.Boolean, index=True, unique=True) #Is feature disclosed?
+    disclosureOpinionA = db.Column(db.String, index=True, unique=True) #Why is feature disclosed?
 
     # User B
     disclosureLocationB = db.Column(db.String, index=True, unique=True)
