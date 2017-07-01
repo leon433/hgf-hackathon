@@ -5,11 +5,15 @@
 <h1> Please enter your claim 1 features.</h1>
 
 <form action="" method="post" name="claim1features">
-
+{{ form.hidden_tag() }}
   <p>
 
    Feature 1:	<br>
    {{ form.feature(size=100) }} <br>
+  		{% for error in form.feature.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}<br>
+
 
    Disclosure Location:	<br>
    {{ form.disclosureLocationA(size=20) }}<br>
