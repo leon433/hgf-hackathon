@@ -44,4 +44,26 @@ window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = "none";
     }
-};
+}
+
+//submit form
+function submitFeature(){
+   var feature = document.getElementById('feature').value;
+   var disclosureLocation = document.getElementById('disclosureLocation').value;
+   var isDisclosed = document.getElementById('isDisclosed').value;
+   var disclosureOpinion = document.getElementById('disclosureOpinion').value;
+
+    $.ajax({
+      url: "/patentee1/feature/submit",
+      type: "get",
+      data: {feature: feature, disclosureLocation: disclosureLocation, isDisclosed: isDisclosed, disclosureOpinion: disclosureOpinion},
+      success: function(response) {
+        closeModal();
+      },
+      error: function(xhr) {
+        //Do Something to handle error
+      }
+    });
+}
+
+
