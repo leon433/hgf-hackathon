@@ -1,3 +1,4 @@
+#!flask/bin/python
 import imp
 from migrate.versioning import api
 from hgf_app import db
