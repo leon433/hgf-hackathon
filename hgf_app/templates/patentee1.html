@@ -5,22 +5,25 @@
 <h1> Please enter your claim 1 features.</h1>
 
 <form action="" method="post" name="claim1features">
-      
-      <p>
 
-      	Feature 1:	<br>
-      	{{ form.feature1(size=100) }}
+  <p>
 
-		Feature 2:	<br>
-		{{ form.feature2(size=100) }}
+   Feature 1:	<br>
+   {{ form.feature(size=100) }} <br>
 
-		Feature 3:	<br>
-		{{ form.feature3(size=100) }}
-          
-      </p>
+   Disclosure Location:	<br>
+   {{ form.disclosureLocationA(size=20) }}<br>
 
-      <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>
-  </form>
+   Is Disclosed?:	<br>
+   {{ form.isDisclosedA }}<br>
+
+   Disclosure Opinion: <br>
+   {{ form.disclosureOpinionA(size=50)}}<br>
+
+ </p>
+
+ <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>
+</form>
 
 
 {% endblock %}
