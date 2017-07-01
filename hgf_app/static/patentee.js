@@ -14,9 +14,11 @@ function getText() {
 function highlight(startOffset, endOffset)
 {
     var range = document.createRange();
-    var textElement = document.getElementById('')
-    range.setStart(startNode, startOffset);
-    range.setEnd(endNode, endOffset);
+    var textElement = document.getElementById('TextSample');
+    range.setStart(textElement.childNodes[0], startOffset);
+    range.setEnd(textElement.childNodes[0], endOffset);
+    var newNode = document.createElement("strong");
+    range.surroundContents(newNode);
 }
 
 // Get the modal

@@ -33,8 +33,7 @@ My research concentrates on the application of signal processing algorithms to s
     <h2>Features</h2>
     <input type='text' id='features' title="Selected features"/>
 
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn" onclick="openModal()">Open Modal</button>
+    <button id="myBtn" onclick="highlight(0, 10)">Test</button>
 
     <!-- The Modal -->
     <div id="featureEditor" class="modal">
@@ -58,6 +57,6 @@ My research concentrates on the application of signal processing algorithms to s
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='patentee.js')}}"></script>
 {% endblock %}
