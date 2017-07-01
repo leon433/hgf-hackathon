@@ -1,3 +1,5 @@
 flask/
 *.pyc
 *.pyc
+*.pyc
+*.pyc
