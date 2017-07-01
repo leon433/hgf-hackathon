@@ -23,5 +23,5 @@ class FeatureModel(db.Model):
     confidenceScore = db.Column(db.Integer, index=True, unique=True)
 
     def __repr__(self):
-        return '<Feature %r>' % self.feature
+        return '< Feature: %s dLocA: %s isDisclosedA: %s disclosureOpinionA: %s >\n' % (self.feature, self.disclosureLocationA, self.isDisclosedA, self.disclosureOpinionA)
 
