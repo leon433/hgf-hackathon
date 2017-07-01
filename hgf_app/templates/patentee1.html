@@ -3,37 +3,7 @@
 {% block content %}
     <link rel="stylesheet" href= "{{ url_for('static',filename='patentee.css') }}">
 
-    <h1> Please enter your claim 1 features.</h1>
 
-<form action="" method="post" name="claim1features">
-{{ form.hidden_tag() }}
-  <p>
-
-   Feature 1:	<br>
-   {{ form.feature(size=100) }} <br>
-  		{% for error in form.feature.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}<br>
-
-
-   Disclosure Location:	<br>
-   {{ form.disclosureLocationA(size=20) }}<br>
-
-   Is Disclosed?:	<br>
-   {{ form.isDisclosedA }}<br>
-
-   Disclosure Opinion: <br>
-   {{ form.disclosureOpinionA(size=50)}}<br>
-
- </p>
-
- <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>
-</form>
-
-          </p>
-
-          <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>
-    </form>
 
     <div id="TextSample" onmouseup="getText()">Mike Brookes is a Reader in the Communications and Signal Processing Group of the Electrical & Electronic Engineering Department. [Curriculum Vitae]
 
@@ -51,21 +21,35 @@ My research concentrates on the application of signal processing algorithms to s
     <div id="featureEditor" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-            <h2>New Feature</h2>
-            <div id='featureInModal'>Some text in the Modal..</div>
+            <span class="close" onclick="closeModal()">&times;</span>
 
-            <div>Location:</div>
-            <input type='text' id="featureLocation"  title="featureLocation"/>
+            <h1> Please enter your claim features.</h1>
+            <div id='featureInModal'>text here</div>
 
-            <div>IsDisclosed:</div>
-            <input type='text' title="IsDisclosed"/>
+            <form action="" method="post" name="claim1features">
+            {{ form.hidden_tag() }}
+                <p>
 
-            <div>DisclosureOpinion</div>
-            <input type='text' title="DisclosureOpinion"/>
+                Feature 1:	<br>
+                {{ form.feature(size=100) }} <br>
+                    {% for error in form.feature.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}<br>
 
-            <br/>
-            <div>Add to features list</div>
+
+                Disclosure Location:	<br>
+                {{ form.disclosureLocation(size=20) }}<br>
+
+                Is Disclosed?:	<br>
+                {{ form.isDisclosed }}<br>
+
+                Disclosure Opinion: <br>
+                {{ form.disclosureOpinion(size=50)}}<br>
+
+                </p>
+
+                <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>
+            </form>
         </div>
     </div>
 

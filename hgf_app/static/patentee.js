@@ -3,9 +3,11 @@ function getText() {
     selectedText = (document.all) ? document.selection.createRange().text : document.getSelection();
 
     if(selectedText.toString().length > 0) {
-        document.getElementById('features').value = selectedText.toString();
+        document.getElementById('feature').value = selectedText.toString();
         document.getElementById('featureInModal').innerHTML = "Feature identified: " + selectedText.toString();
-        document.getElementById('featureLocation').value = ("Anchor offset: " + document.getSelection().anchorOffset + ";" + "Focus offset: " + document.getSelection().focusOffset).toString();
+
+        //"Anchor offset, Focus offset" which is the same as "start_char index, end_char index"
+        document.getElementById('disclosureLocation').value = (selectedText.anchorOffset + ", " + selectedText.focusOffset).toString();
 
         openModal();
     }
