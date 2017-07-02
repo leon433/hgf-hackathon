@@ -1,33 +1,58 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h1> Please enter your claim 1 features.</h1>
-
-<form action="" method="post" name="claim1features">
-{{ form.hidden_tag() }}
-  <p>
-
-   Feature 1:	<br>
-   {{ form.feature(size=100) }} <br>
-  		{% for error in form.feature.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}<br>
+    <link rel="stylesheet" href= "{{ url_for('static',filename='patentee.css') }}">
 
 
-   Disclosure Location:	<br>
-   {{ form.disclosureLocationA(size=20) }}<br>
 
-   Is Disclosed?:	<br>
-   {{ form.isDisclosedA }}<br>
+    <div id="TextSample" onmouseup="getText()">Mike Brookes is a Reader in the Communications and Signal Processing Group of the Electrical & Electronic Engineering Department. [Curriculum Vitae]
 
-   Disclosure Opinion: <br>
-   {{ form.disclosureOpinionA(size=50)}}<br>
+Research
 
- </p>
+My research concentrates on the application of signal processing algorithms to speech and image processing and to software radio systems. I combine expertise in signal processing and digital system design and am interested both in the development of new algorithms and in their real-time hardware implementation. Current projects include:
+    </div>
 
- <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>
-</form>
+    <h2>Features</h2>
+    <input type='text' id='features' title="Selected features"/>
+
+    <button id="myBtn" onclick="highlight(0, 10)">Test</button>
+
+    <!-- The Modal -->
+    <div id="featureEditor" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+
+            <h1> Please enter your claim features.</h1>
+            <div id='featureInModal'>text here</div>
+
+            <form action="" method="post" name="claim1features">
+            {{ form.hidden_tag() }}
+                <p>
+
+                Feature 1:	<br>
+                {{ form.feature(size=100) }} <br>
+                    {% for error in form.feature.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}<br>
 
 
+                Disclosure Location:	<br>
+                {{ form.disclosureLocation(size=20) }}<br>
+
+                Is Disclosed?:	<br>
+                {{ form.isDisclosed }}<br>
+
+                Disclosure Opinion: <br>
+                {{ form.disclosureOpinion(size=50)}}<br>
+
+                </p>
+
+                <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='patentee.js')}}"></script>
 {% endblock %}
