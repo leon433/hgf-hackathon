@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href= "{{ url_for('static',filename='patentee.css') }}">
+
+
+
+    <div id="TextSample" onmouseup="getText()">Mike Brookes is a Reader in the Communications and Signal Processing Group of the Electrical & Electronic Engineering Department. [Curriculum Vitae]
+
+Research
+
+My research concentrates on the application of signal processing algorithms to speech and image processing and to software radio systems. I combine expertise in signal processing and digital system design and am interested both in the development of new algorithms and in their real-time hardware implementation. Current projects include:
+    </div>
+
+    <!-- The Modal -->
+    <div id="featureEditor" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+
+            <h1> Please enter your claim features.</h1>
+            <div id='featureInModal'>text here</div>
+
+            <form action="" method="post" name="claim1features">
+            {{ form.hidden_tag() }}
+                <p>
+
+                Feature 1:	<br>
+                {{ form.feature(size=100) }} <br>
+                    {% for error in form.feature.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}<br>
+
+
+                Disclosure Location:	<br>
+                {{ form.disclosureLocation(size=20) }}<br>
+
+                Is Disclosed?:	<br>
+                {{ form.isDisclosed }}<br>
+
+                Disclosure Opinion: <br>
+                {{ form.disclosureOpinion(size=50)}}<br>
+
+                </p>
+
+{#                <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>#}
+                <p class="btn btn-primary btn-lg active" onclick="submitFeature()"> Submit </p>
+            </form>
+        </div>
+    </div>
+
+    <h2>Features list</h2>
+    <table class="table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Is Disclosed?</th>
+        <th>Disclosure opinion</th>
+        <th>Edit</th>
+        <th>Highlight</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody id="featureList">
+    </tbody>
+  </table>
+
+
+
+    <h2>Test:</h2>
+    <input type='text' id='features' title="Selected features"/>
+    <button id="myBtn" onclick="highlight(0, 10)">Test</button>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='user2.js')}}"></script>
+{% endblock %}
