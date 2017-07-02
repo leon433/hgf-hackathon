@@ -59,7 +59,7 @@ def getFeatures():
     entriesList = []
     for entry in entries:
         separatedLocation =[]
-        if (len(separatedLocation) > 0):
+        if entry.disclosureLocationA is not None:
             separatedLocation = [x.strip() for x in entry.disclosureLocationA.split(',')]
         else:
             separatedLocation = [0, 0]

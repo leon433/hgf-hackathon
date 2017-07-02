@@ -17,10 +17,18 @@ function highlight(startOffset, endOffset)
 {
     var range = document.createRange();
     var textElement = document.getElementById('TextSample');
+    textElement.innerHTML = strip(textElement.innerHTML);
     range.setStart(textElement.childNodes[0], startOffset);
     range.setEnd(textElement.childNodes[0], endOffset);
     var newNode = document.createElement("strong");
     range.surroundContents(newNode);
+}
+
+function strip(html)
+{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
 }
 
 // Get the modal
@@ -91,11 +99,14 @@ function printFeatures(features){
     }
     for (var i in features){
         var row = '';
+        var disclosureLocation1 = features[i].disclosureLocation1
+        var disclosureLocation2 = features[i].disclosureLocation2
+
         row += '<td>'+ features[i].feature +'</td>';
         row += '<td>'+ features[i].isDisclosed +'</td>';
         row += '<td>'+ features[i].disclosureOpinion +'</td>';
-        row += "<td><button id='editBtn' onclick='highlight(features[i].disclosureLocation1, features[i].disclosureLocation2)'>Edit</button></td>";
-        row += "<td><button id='highlightBtn' onclick='highlight(0, 10)'>Highlight</button></td>";
+        row += "<td><button id='editBtn' onclick='highlight("+disclosureLocation1.toString()+", " + disclosureLocation2.toString() + ")'>Edit</button></td>";
+        row += "<td><button id='highlightBtn' onclick='highlight("+disclosureLocation1.toString()+", " + disclosureLocation2.toString() + ")'>Highlight</button></td>";
         row += "<td><button id='deleteBtn' onclick='highlight(0, 10)'>Delete</button></td>";
         tableElement.innerHTML += '<tr>' + row + '</tr>';
     }
