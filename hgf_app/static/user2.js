@@ -1,5 +1,6 @@
 var selectedText = '';
 var _id = 0;
+getAndPrintFeatures();
 function getText() {
     selectedText = (document.all) ? document.selection.createRange().text : document.getSelection();
 
@@ -13,15 +14,23 @@ function getText() {
         openModal();
     }
 }
-getAndPrintFeatures();
+
 function highlight(startOffset, endOffset)
 {
     var range = document.createRange();
     var textElement = document.getElementById('TextSample');
+    textElement.innerHTML = strip(textElement.innerHTML);
     range.setStart(textElement.childNodes[0], startOffset);
     range.setEnd(textElement.childNodes[0], endOffset);
     var newNode = document.createElement("strong");
     range.surroundContents(newNode);
+}
+
+function strip(html)
+{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
 }
 
 // Get the modal

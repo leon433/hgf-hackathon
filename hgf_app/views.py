@@ -146,10 +146,16 @@ def getFeatures2():
     entries = FeatureModel.query.all()
     entriesList = []
     for entry in entries:
-        separatedLocation =[]
-        if (len(separatedLocation) > 0):
+        separatedLocation = []
+        if entry.disclosureLocationB is not None:
             separatedLocation = [x.strip() for x in entry.disclosureLocationB.split(',')]
         else:
+            entry.disclosureLocationB = entry.disclosureLocationA
+
+        if entry.disclosureLocationB is None:
+            separatedLocation = [0, 0]
+
+        if len(separatedLocation) < 2:
             separatedLocation = [0, 0]
 
         entryDict = {
