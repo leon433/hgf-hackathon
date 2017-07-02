@@ -71,7 +71,7 @@ function submitFeature(){
 //Get list of features
 function getAndPrintFeatures(){
     $.ajax({
-      url: "/patentee1/feature/get",
+      url: "/patentee1/features/get",
       type: "get",
       data: {},
       success: function(response) {
@@ -85,15 +85,24 @@ function getAndPrintFeatures(){
 
 function printFeatures(features){
     var tableElement = document.getElementById('featureList');
-    // $('tr').remove();
+
+    while (tableElement.hasChildNodes()) {
+        tableElement.removeChild(tableElement.lastChild);
+    }
     for (var i in features){
         var row = '';
         row += '<td>'+ features[i].feature +'</td>';
-        row += '<td>'+ features[i].disclosureLocation +'</td>';
         row += '<td>'+ features[i].isDisclosed +'</td>';
         row += '<td>'+ features[i].disclosureOpinion +'</td>';
+        row += "<td><button id='editBtn' onclick='highlight(0, 10)'>Edit</button></td>";
+        row += "<td><button id='highlightBtn' onclick='highlight(0, 10)'>Highlight</button></td>";
+        row += "<td><button id='deleteBtn' onclick='highlight(0, 10)'>Delete</button></td>";
         tableElement.innerHTML += '<tr>' + row + '</tr>';
     }
+}
+
+function editFeature(id){
+
 }
 
 
