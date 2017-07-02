@@ -1,6 +1,6 @@
 from hgf_app import app, db
 from flask import render_template, redirect, request, jsonify
-from .forms import FeaturesForm
+from .forms import FeaturesForm, FeaturesEditForm
 from .models import FeatureModel
 
 
@@ -99,6 +99,7 @@ def deleteFeature():
 @app.route('/user2', methods=['GET', 'POST'])
 def saveClaimFeature2():
     form = FeaturesForm()
+    form2 = FeaturesEditForm()
 
     # if form.validate_on_submit():
     #     FormEntry = FeatureModel(feature=form.feature.data, disclosureLocationB=form.disclosureLocation.data,
@@ -107,7 +108,7 @@ def saveClaimFeature2():
     #     db.session.commit()
     #     return redirect('/submitted')
     # print('FAIL')
-    return render_template('user2.html', form=form, title='Submit')
+    return render_template('user2.html', form=form, formEdit=form2, title='Submit')
 
 
 @app.route('/user2/feature/submit')
@@ -127,12 +128,13 @@ def submitFeature2():
 
 @app.route('/user2/feature/get')
 def getFeature2():
-    id = request.args.get('id', 0, type)
+    id = request.args.get('id', 0, type=int)
     feature = FeatureModel.query.get(id)
 
     return jsonify({
+        'id': id,
         'feature': feature.feature,
-        'disclosureLocation': feature.disclosureLocationB,
+        'disclosureLocation': feature.disclosureLocationA,
         'isDisclosed': feature.isDisclosedB,
         'disclosureOpinion': feature.disclosureOpinionB
     })
@@ -164,18 +166,18 @@ def getFeatures2():
 
 @app.route('/user2/feature/edit')
 def editFeature2():
-    id = request.args.get('id', 0, type)
+    id = request.args.get('id', 0, type=int)
     record = FeatureModel.query.get(id)
 
     feature = request.args.get('feature', "", type=str)
-    disclosureLocationA = request.args.get('disclosureLocation', "", type=str)
-    isDisclosedA = request.args.get('isDisclosed', type=bool)
-    disclosureOpinionA = request.args.get('disclosureOpinion', type=str)
+    disclosureLocation = request.args.get('disclosureLocation', "", type=str)
+    isDisclosed = request.args.get('isDisclosed', type=bool)
+    disclosureOpinion = request.args.get('disclosureOpinion', type=str)
 
     record.feature = feature
-    record.disclosureLocationB = disclosureLocationB
-    record.isDisclosedB = isDisclosedB
-    record.disclosureOpinionB = disclosureOpinionB
+    record.disclosureLocationB = disclosureLocation
+    record.isDisclosedB = isDisclosed
+    record.disclosureOpinionB = disclosureOpinion
     db.session.commit()
     return jsonify({'status': 'OK'})
 

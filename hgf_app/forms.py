@@ -8,3 +8,10 @@ class FeaturesForm(Form):
     disclosureLocation = StringField('disclosureLocation')
     isDisclosed = BooleanField('isDisclosed')
     disclosureOpinion = StringField('disclosureOpinion')
+
+
+class FeaturesEditForm(Form):
+    editFeature = StringField('editFeature', validators=[DataRequired()])
+    disclosureEditLocation = StringField('disclosureEditLocation')
+    isEditDisclosed = BooleanField('isEditDisclosed')
+    disclosureEditOpinion = StringField('disclosureEditOpinion')

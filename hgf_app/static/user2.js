@@ -1,4 +1,5 @@
 var selectedText = '';
+var _id = 0;
 function getText() {
     selectedText = (document.all) ? document.selection.createRange().text : document.getSelection();
 
@@ -24,7 +25,8 @@ function highlight(startOffset, endOffset)
 }
 
 // Get the modal
-var modal = document.getElementById('featureEditor');
+var modal = document.getElementById('featureBuilder');
+var editorModal = document.getElementById('featureEditor');
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
@@ -33,16 +35,26 @@ var span = document.getElementsByClassName("close")[0];
 function openModal() {
     modal.style.display = "block";
 }
+function openEditModal() {
+    editorModal.style.display = "block";
+}
 
 // When the user clicks on <span> (x), close the modal
 function closeModal() {
     modal.style.display = "none";
+}
+function closeEditModal() {
+    editorModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = "none";
+    }
+
+    if (event.target === editorModal) {
+        editorModal.style.display = "none";
     }
 }
 
@@ -68,6 +80,32 @@ function submitFeature(){
     });
 }
 
+//submit form
+function submitEditFeature(response){
+
+    var feature = document.getElementById('editFeature').value;
+    var disclosureLocation = document.getElementById('disclosureEditLocation').value;
+    //var isDisclosedA = response.isDisclosed;
+    var isDisclosed = document.getElementById('isEditDisclosed').value;
+    //var disclosureOpinionA = response.disclosureOpinionB;
+    var disclosureOpinion = document.getElementById('disclosureEditOpinion').value;
+
+    $.ajax({
+      url: "/user2/feature/edit",
+      type: "get",
+      data: {id: _id, feature: feature, disclosureLocation: disclosureLocation, isDisclosed: isDisclosed, disclosureOpinion: disclosureOpinion},
+      success: function(response) {
+
+        getAndPrintFeatures();
+        closeEditModal();
+      },
+      error: function(xhr) {
+          console.log(xhr)
+          window.alert("Failed to add feature.");
+      }
+    });
+}
+
 //Get list of features
 function getAndPrintFeatures(){
     $.ajax({
@@ -83,6 +121,33 @@ function getAndPrintFeatures(){
     });
 }
 
+//Get list of features
+function getAndEditFeature(id){
+    _id = id;
+    $.ajax({
+      url: "/user2/feature/get",
+      type: "get",
+      data: {id: id},
+      success: function(response) {
+        editFeature(response);
+      },
+      error: function(xhr) {
+        window.alert("Failed to get features.");
+      }
+    });
+}
+
+function editFeature(response){
+    document.getElementById('editFeature').value = response.feature;
+
+    //"Anchor offset, Focus offset" which is the same as "start_char index, end_char index"
+    document.getElementById('disclosureEditLocation').value = response.disclosureLocation.toString();
+
+
+    openEditModal();
+
+}
+
 function printFeatures(features){
     var tableElement = document.getElementById('featureList');
 
@@ -91,18 +156,30 @@ function printFeatures(features){
     }
     for (var i in features){
         var row = '';
+        var disclosureLocation1 = features[i].disclosureLocation1
+        var disclosureLocation2 = features[i].disclosureLocation2
+
         row += '<td>'+ features[i].feature +'</td>';
         row += '<td>'+ features[i].isDisclosed +'</td>';
         row += '<td>'+ features[i].disclosureOpinion +'</td>';
-        row += "<td><button id='editBtn' onclick='highlight(features[i].disclosureLocation1, features[i].disclosureLocation2)'>Edit</button></td>";
-        row += "<td><button id='highlightBtn' onclick='highlight(0, 10)'>Highlight</button></td>";
-        row += "<td><button id='deleteBtn' onclick='highlight(0, 10)'>Delete</button></td>";
+        row += "<td><button id='editBtn' onclick='getAndEditFeature(" + features[i].id + ")'>Edit</button></td>";
+        row += "<td><button id='highlightBtn' onclick='highlight("+disclosureLocation1.toString()+", " + disclosureLocation2.toString() + ")'>Highlight</button></td>";
+        row += "<td><button id='deleteBtn' onclick='deleteFeature(" + features[i].id + ")'>Delete</button></td>";
         tableElement.innerHTML += '<tr>' + row + '</tr>';
     }
 }
 
-function editFeature(id){
-
+function deleteFeature(id){
+    $.ajax({
+      url: "/patentee1/feature/delete",
+      type: "get",
+      data: {id: id},
+      success: function(response) {
+          getAndPrintFeatures()
+      },
+      error: function(xhr) {
+          console.log(xhr)
+          window.alert("Failed to delete feature.");
+      }
+    });
 }
-
-
