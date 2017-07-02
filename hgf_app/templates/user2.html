@@ -14,7 +14,7 @@ a source of electrical power to electrify the screen.</h3>
     </div>
 
     <!-- The Modal -->
-    <div id="featureEditor" class="modal">
+    <div id="featureBuilder" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -50,6 +50,42 @@ a source of electrical power to electrify the screen.</h3>
         </div>
     </div>
 
+    <!-- The Modal -->
+    <div id="featureEditor" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+
+            <h1> Please enter your claim features.</h1>
+
+            <form action="" method="post" name="claim1features">
+            {{ form.hidden_tag() }}
+                <p>
+
+                Feature 1:	<br>
+                {{ formEdit.editFeature(size=100) }} <br>
+                    {% for error in formEdit.editFeature.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}<br>
+
+
+                Disclosure Location:	<br>
+                {{ formEdit.disclosureEditLocation(size=20) }}<br>
+
+                Is Disclosed?:	<br>
+                {{ formEdit.isEditDisclosed }}<br>
+
+                Disclosure Opinion: <br>
+                {{ formEdit.disclosureEditOpinion(size=50)}}<br>
+
+                </p>
+
+{#                <p><input type="submit" class="btn btn-primary btn-lg active" value="Submit"></p>#}
+                <p class="btn btn-primary btn-lg active" onclick="submitEditFeature()"> Submit </p>
+            </form>
+        </div>
+    </div>
+
     <h2>Features list</h2>
     <table class="table">
     <thead>
@@ -65,12 +101,6 @@ a source of electrical power to electrify the screen.</h3>
     <tbody id="featureList">
     </tbody>
   </table>
-
-
-
-    <h2>Test:</h2>
-    <input type='text' id='features' title="Selected features"/>
-    <button id="myBtn" onclick="highlight(0, 10)">Test</button>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
