@@ -94,7 +94,7 @@ function printFeatures(features){
         row += '<td>'+ features[i].feature +'</td>';
         row += '<td>'+ features[i].isDisclosed +'</td>';
         row += '<td>'+ features[i].disclosureOpinion +'</td>';
-        row += "<td><button id='editBtn' onclick='highlight(0, 10)'>Edit</button></td>";
+        row += "<td><button id='editBtn' onclick='highlight(features[i].disclosureLocation1, features[i].disclosureLocation2)'>Edit</button></td>";
         row += "<td><button id='highlightBtn' onclick='highlight(0, 10)'>Highlight</button></td>";
         row += "<td><button id='deleteBtn' onclick='highlight(0, 10)'>Delete</button></td>";
         tableElement.innerHTML += '<tr>' + row + '</tr>';
