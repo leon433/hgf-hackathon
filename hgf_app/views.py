@@ -1,7 +1,7 @@
 from hgf_app import app, db
 from flask import render_template, redirect, request, jsonify
 from .forms import FeaturesForm, FeaturesEditForm
-from .models import FeatureModel
+from .models import FeatureModel, ModScoreModel
 
 
 @app.route('/')
@@ -223,3 +223,16 @@ def getFeaturesForExperts():
         entriesList.append(entryDict)
 
     return jsonify(entriesList)
+
+@app.route('/expert1/score/post')
+def submitScores():
+    modId = request.args.get('modId', "", type=int)
+    featureIds = request.args.get('featureId', "", type=str)
+    noveltyScore = request.args.get('noveltyScore', "", type=str)
+    infringementScore = request.args.get('infringementScore', "", type=str)
+    expertOpinion = request.args.get('expertOpinion', "", type=str)
+
+    FormEntry = ModScoreModel(modId=modId, featureIds=featureIds, noveltyScore=noveltyScore,
+                              infringementScore=infringementScore, expertOpinion=expertOpinion);
+    db.session.add(FormEntry)
+    db.session.commit()

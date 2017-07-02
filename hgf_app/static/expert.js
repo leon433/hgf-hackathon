@@ -1,4 +1,7 @@
 var selectedText = '';
+_featureId = [];
+_mod_id = 1;
+getAndPrintFeatures();
 function highlight(startOffset, endOffset)
 {
     var range = document.createRange();
@@ -60,7 +63,7 @@ function submitFeature(){
 //Get list of features
 function getAndPrintFeatures(){
     $.ajax({
-      url: "/patentee1/features/get",
+      url: "/expert1/features/get",
       type: "get",
       data: {},
       success: function(response) {
@@ -80,6 +83,7 @@ function printFeatures(features){
     }
     for (var i in features){
         var row = '';
+        _featureId.push(features[i].id)
         var disclosureLocation1 = features[i].disclosureLocation1
         var disclosureLocation2 = features[i].disclosureLocation2
 
@@ -88,10 +92,10 @@ function printFeatures(features){
         row += '<td>'+ features[i].isDisclosedB +'</td>';
         row += '<td>'+ features[i].disclosureOpinionA +'</td>';
         row += '<td>'+ features[i].disclosureOpinionB +'</td>';
-        row += '<td><input id="expertOpinion">'+ "" +'</td><input></td>';
+        row += '<td><input id="expertOpinion" class="expertOpinion">'+ "" +'</td>';
         row += "<td><button id='highlightBtn' onclick='highlight("+disclosureLocation1.toString()+", " + disclosureLocation2.toString() + ")'>Highlight</button></td>";
-        row += '<td><input id="infringementScore">'+ "" +'</td><input></td>';
-        row += '<td><input id="noveltyScore">'+ "" +'</td><input></td>';
+        row += '<td><input id="infringementScore" class="infringementScore">'+ "" +'</td>';
+        row += '<td><input id="noveltyScore" class="noveltyScore">'+ "" +'</td>';
         tableElement.innerHTML += '<tr>' + row + '</tr>';
     }
 }
@@ -111,4 +115,40 @@ function deleteFeature(id){
     });
 }
 
+function submitScores(id) {
+    _mod_id = id;
+    var expertOpinion = [];
+    var list = $( ".expertOpinion" );
+    for (var i in list){
+        expertOpinion.push(list[i].value);
+    }
+
+    var infringementScore = [];
+    var list = $( ".infringementScore" );
+    for (var i in list){
+        infringementScore.push(list[i].value);
+    }
+
+    var noveltyScore = [];
+    var list = $( ".noveltyScore" );
+    for (var i in list){
+        noveltyScore.push(list[i].value);
+    }
+
+    var inventiveness = $("inventivenessScore").value
+
+    $.ajax({
+      url: "/expert1/score/post",
+      type: "get",
+      data: {modId: _mod_id, featureId: _featureId, expertOpinion: expertOpinion, infringementScore: infringementScore, noveltyScore: noveltyScore},
+      success: function(response) {
+          getAndPrintFeatures()
+      },
+      error: function(xhr) {
+          console.log(xhr)
+          window.alert("Failed to add scores.");
+      }
+    });
+    
+}
 
