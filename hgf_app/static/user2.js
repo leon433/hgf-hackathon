@@ -12,7 +12,7 @@ function getText() {
         openModal();
     }
 }
-
+getAndPrintFeatures();
 function highlight(startOffset, endOffset)
 {
     var range = document.createRange();

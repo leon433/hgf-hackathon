@@ -92,13 +92,13 @@ def deleteFeature():
 def saveClaimFeature2():
     form = FeaturesForm()
 
-    if form.validate_on_submit():
-        FormEntry = FeatureModel(feature=form.feature.data, disclosureLocationB=form.disclosureLocation.data,
-                                 isDisclosedA=form.isDisclosed.data, disclosureOpinionB=form.disclosureOpinion.data)
-        db.session.add(FormEntry)
-        db.session.commit()
-        return redirect('/submitted')
-    print('FAIL')
+    # if form.validate_on_submit():
+    #     FormEntry = FeatureModel(feature=form.feature.data, disclosureLocationB=form.disclosureLocation.data,
+    #                              isDisclosedA=form.isDisclosed.data, disclosureOpinionB=form.disclosureOpinion.data)
+    #     db.session.add(FormEntry)
+    #     db.session.commit()
+    #     return redirect('/submitted')
+    # print('FAIL')
     return render_template('user2.html', form=form, title='Submit')
 
 
