@@ -110,21 +110,21 @@ def saveClaimFeature2():
     form = FeaturesForm()
 
     if form.validate_on_submit():
-        FormEntry = FeatureModel(feature=form.feature.data, disclosureLocationA=form.disclosureLocation.data,
-                                 isDisclosedA=form.isDisclosed.data, disclosureOpinionA=form.disclosureOpinion.data)
+        FormEntry = FeatureModel(feature=form.feature.data, disclosureLocationB=form.disclosureLocation.data,
+                                 isDisclosedA=form.isDisclosed.data, disclosureOpinionB=form.disclosureOpinion.data)
         db.session.add(FormEntry)
         db.session.commit()
         return redirect('/submitted')
     print('FAIL')
-    return render_template('patentee1.html', form=form, title='Submit')
+    return render_template('user2.html', form=form, title='Submit')
 
 
 @app.route('/user2/feature/submit')
 def submitFeature2():
     feature = request.args.get('feature', "", type=str)
-    disclosureLocationA = request.args.get('disclosureLocation', "", type=str)
-    isDisclosedA = request.args.get('isDisclosed', type=bool)
-    disclosureOpinionA = request.args.get('disclosureOpinion', type=str)
+    disclosureLocationB = request.args.get('disclosureLocation', "", type=str)
+    isDisclosedB = request.args.get('isDisclosed', type=bool)
+    disclosureOpinionB = request.args.get('disclosureOpinion', type=str)
 
     FormEntry = FeatureModel(feature=feature, disclosureLocationB=disclosureLocationB,
                              isDisclosedB=isDisclosedB, disclosureOpinionB=disclosureOpinionB)
@@ -160,7 +160,7 @@ def getFeatures2():
             separatedLocation = [0, 0]
 
         entryDict = {
-            'id': entry.feature,
+            'id': entry.id,
             'feature': entry.feature,
             'disclosureLocation1': separatedLocation[0],
             'disclosureLocation2': separatedLocation[1],
