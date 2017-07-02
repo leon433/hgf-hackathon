@@ -41,7 +41,7 @@ def submitFeature():
 
 @app.route('/patentee1/feature/get')
 def getFeature():
-    id = request.args.get('id', 0, type)
+    id = request.args.get('id', 0, type=int)
     feature = FeatureModel.query.get(id)
 
     return jsonify({
@@ -59,13 +59,13 @@ def getFeatures():
     entriesList = []
     for entry in entries:
         separatedLocation =[]
-        if (len(separatedLocation) > 0):
+        if entry.disclosureLocationA is not None:
             separatedLocation = [x.strip() for x in entry.disclosureLocationA.split(',')]
         else:
             separatedLocation = [0, 0]
 
         entryDict = {
-            'id': entry.feature,
+            'id': entry.id,
             'feature': entry.feature,
             'disclosureLocation1': separatedLocation[0],
             'disclosureLocation2': separatedLocation[1],
@@ -76,28 +76,11 @@ def getFeatures():
     return jsonify(entriesList)
 
 
-@app.route('/patentee1/feature/edit')
-def editFeature():
-    id = request.args.get('id', 0, type)
-    record = FeatureModel.query.get(id)
-
-    feature = request.args.get('feature', "", type=str)
-    disclosureLocationA = request.args.get('disclosureLocation', "", type=str)
-    isDisclosedA = request.args.get('isDisclosed', type=bool)
-    disclosureOpinionA = request.args.get('disclosureOpinion', type=str)
-
-    record.feature = feature
-    record.disclosureLocationA = disclosureLocationA
-    record.isDisclosedA = isDisclosedA
-    record.disclosureOpinionA = disclosureOpinionA
-    db.session.commit()
-    return jsonify({'status': 'OK'})
-
-
 @app.route('/patentee1/feature/delete')
 def deleteFeature():
-    id = request.args.get('id', 0, type)
-    db.session.delete(id)
+    id = request.args.get('id', 0, type=int)
+    feature = FeatureModel.query.get(id)
+    db.session.delete(feature)
     db.session.commit()
     return jsonify({'status': 'OK'})
 
