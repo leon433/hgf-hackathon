@@ -11,7 +11,8 @@ def index():
 
 @app.route('/expert1')
 def expert1():
-    return render_template('expert1.html')
+    form = FeaturesForm()
+    return render_template('expert1.html', form=form, title='Submit')
 
 
 @app.route('/patentee1', methods=['GET', 'POST'])
@@ -185,3 +186,32 @@ def deleteFeature2():
     db.session.delete(id)
     db.session.commit()
     return jsonify({'status': 'OK'})
+
+
+@app.route('/expert1/features/get')
+def getFeaturesForExperts():
+    # need to filter by patentee
+    entries = FeatureModel.query.all()
+    entriesList = []
+    for entry in entries:
+        separatedLocation = []
+        if entry.disclosureLocationA is not None:
+            separatedLocation = [x.strip() for x in entry.disclosureLocationA.split(',')]
+        else:
+            separatedLocation = [0, 0]
+
+        if len(separatedLocation) < 2:
+            separatedLocation = [0, 0]
+
+        entryDict = {
+            'id': entry.id,
+            'feature': entry.feature,
+            'disclosureLocation1': separatedLocation[0],
+            'disclosureLocation2': separatedLocation[1] or separatedLocation[0],
+            'isDisclosedA': entry.isDisclosedA,
+            'isDisclosedB': entry.isDisclosedB,
+            'disclosureOpinionA': entry.disclosureOpinionA,
+            'disclosureOpinionB': entry.disclosureOpinionB}
+        entriesList.append(entryDict)
+
+    return jsonify(entriesList)
