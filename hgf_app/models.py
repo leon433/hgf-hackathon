@@ -1,6 +1,6 @@
 from hgf_app import db
 
-
+#Database of features
 class FeatureModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -17,11 +17,33 @@ class FeatureModel(db.Model):
     disclosureOpinionB = db.Column(db.String, index=True, unique=True)
 
     # Moderators
+
+    mod_score_ids = db.relationship('ModScoreModel', backref='feature', lazy='dynamic', primaryjoin="ModScoreModel.feature_id == FeatureModel.id")
+
+    #noveltyScore = db.Column(db.Integer, index=True, unique=True)
+    #infringementScore = db.Column(db.Integer, index=True, unique=True)
+    #modOpinion = db.Column(db.Integer, index=True, unique=True)
+    #confidenceScore = db.Column(db.Integer, index=True, unique=True)
+
+
+
+    def __repr__(self):
+        return '< ID: %s Feature: %s dLocA: %s isDisclosedA: %s disclosureOpinionA: %s >\n' % (self.id, self.feature, self.disclosureLocationA, self.isDisclosedA, self.disclosureOpinionA)
+
+
+#Database of moderator scores
+class ModScoreModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True) #Unique score ID
+    mod_id = db.Column(db.Integer, index=True) #ID of moderator 
+
+    feature_id = db.Column(db.Integer, db.ForeignKey('feature_model.id')) #foreign key joining to Feature table
+    
+
     noveltyScore = db.Column(db.Integer, index=True, unique=True)
     infringementScore = db.Column(db.Integer, index=True, unique=True)
     modOpinion = db.Column(db.Integer, index=True, unique=True)
     confidenceScore = db.Column(db.Integer, index=True, unique=True)
 
     def __repr__(self):
-        return '< Feature: %s dLocA: %s isDisclosedA: %s disclosureOpinionA: %s >\n' % (self.feature, self.disclosureLocationA, self.isDisclosedA, self.disclosureOpinionA)
+        return '< Score ID: %s Feature ID: %s noveltyScore %s >\n' % (self.id, self.feature_id, self.noveltyScore)
 
