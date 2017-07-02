@@ -1,4 +1,5 @@
 var selectedText = '';
+getAndPrintFeatures();
 function highlight(startOffset, endOffset)
 {
     var range = document.createRange();
@@ -60,7 +61,7 @@ function submitFeature(){
 //Get list of features
 function getAndPrintFeatures(){
     $.ajax({
-      url: "/patentee1/features/get",
+      url: "/expert1/features/get",
       type: "get",
       data: {},
       success: function(response) {
@@ -88,10 +89,10 @@ function printFeatures(features){
         row += '<td>'+ features[i].isDisclosedB +'</td>';
         row += '<td>'+ features[i].disclosureOpinionA +'</td>';
         row += '<td>'+ features[i].disclosureOpinionB +'</td>';
-        row += '<td><input id="expertOpinion">'+ "" +'</td><input></td>';
+        row += '<td><input id="expertOpinion" class="expertOpinion">'+ "" +'</td>';
         row += "<td><button id='highlightBtn' onclick='highlight("+disclosureLocation1.toString()+", " + disclosureLocation2.toString() + ")'>Highlight</button></td>";
-        row += '<td><input id="infringementScore">'+ "" +'</td><input></td>';
-        row += '<td><input id="noveltyScore">'+ "" +'</td><input></td>';
+        row += '<td><input id="infringementScore">'+ "" +'</td>';
+        row += '<td><input id="noveltyScore">'+ "" +'</td>';
         tableElement.innerHTML += '<tr>' + row + '</tr>';
     }
 }
@@ -111,4 +112,13 @@ function deleteFeature(id){
     });
 }
 
+function submitScores() {
+
+    var expertOpinion = [];
+    var list = $( ".expertOpinion" );
+    for (var i in list){
+        expertOpinion.push(list[i].value);
+    }
+    
+}
 

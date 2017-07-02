@@ -67,14 +67,11 @@ My research concentrates on the application of signal processing algorithms to s
     <tbody id="featureList">
     </tbody>
   </table>
+    <h3>Inventiveness</h3>
 
-
-
-    <h2>Test:</h2>
-    <input type='text' id='features' title="Selected features"/>
-    <button id="myBtn" onclick="highlight(0, 10)">Test</button>
+    <p class="btn btn-primary btn-lg active" onclick="submitScores()"> Submit </p>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename='patentee.js')}}"></script>
+    <script src="{{url_for('static', filename='expert.js')}}"></script>
 {% endblock %}
