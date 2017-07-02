@@ -105,15 +105,25 @@ function printFeatures(features){
         row += '<td>'+ features[i].feature +'</td>';
         row += '<td>'+ features[i].isDisclosed +'</td>';
         row += '<td>'+ features[i].disclosureOpinion +'</td>';
-        row += "<td><button id='editBtn' onclick='highlight("+disclosureLocation1.toString()+", " + disclosureLocation2.toString() + ")'>Edit</button></td>";
         row += "<td><button id='highlightBtn' onclick='highlight("+disclosureLocation1.toString()+", " + disclosureLocation2.toString() + ")'>Highlight</button></td>";
-        row += "<td><button id='deleteBtn' onclick='highlight(0, 10)'>Delete</button></td>";
+        row += "<td><button id='deleteBtn' onclick='deleteFeature(" + features[i].id + ")'>Delete</button></td>";
         tableElement.innerHTML += '<tr>' + row + '</tr>';
     }
 }
 
-function editFeature(id){
-
+function deleteFeature(id){
+    $.ajax({
+      url: "/patentee1/feature/delete",
+      type: "get",
+      data: {id: id},
+      success: function(response) {
+          getAndPrintFeatures()
+      },
+      error: function(xhr) {
+          console.log(xhr)
+          window.alert("Failed to delete feature.");
+      }
+    });
 }
 
 
