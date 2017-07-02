@@ -59,11 +59,41 @@ function submitFeature(){
       data: {feature: feature, disclosureLocation: disclosureLocation, isDisclosed: isDisclosed, disclosureOpinion: disclosureOpinion},
       success: function(response) {
         closeModal();
+        getAndPrintFeatures();
       },
       error: function(xhr) {
-        //Do Something to handle error
+          console.log(xhr)
+          window.alert("Failed to add feature.");
       }
     });
+}
+
+//Get list of features
+function getAndPrintFeatures(){
+    $.ajax({
+      url: "/patentee1/feature/get",
+      type: "get",
+      data: {},
+      success: function(response) {
+        printFeatures(response);
+      },
+      error: function(xhr) {
+        window.alert("Failed to get features.");
+      }
+    });
+}
+
+function printFeatures(features){
+    var tableElement = document.getElementById('featureList');
+    // $('tr').remove();
+    for (var i in features){
+        var row = '';
+        row += '<td>'+ features[i].feature +'</td>';
+        row += '<td>'+ features[i].disclosureLocation +'</td>';
+        row += '<td>'+ features[i].isDisclosed +'</td>';
+        row += '<td>'+ features[i].disclosureOpinion +'</td>';
+        tableElement.innerHTML += '<tr>' + row + '</tr>';
+    }
 }
 
 

@@ -12,11 +12,6 @@ Research
 My research concentrates on the application of signal processing algorithms to speech and image processing and to software radio systems. I combine expertise in signal processing and digital system design and am interested both in the development of new algorithms and in their real-time hardware implementation. Current projects include:
     </div>
 
-    <h2>Features</h2>
-    <input type='text' id='features' title="Selected features"/>
-
-    <button id="myBtn" onclick="highlight(0, 10)">Test</button>
-
     <!-- The Modal -->
     <div id="featureEditor" class="modal">
         <!-- Modal content -->
@@ -53,6 +48,29 @@ My research concentrates on the application of signal processing algorithms to s
             </form>
         </div>
     </div>
+
+    <h2>Features list</h2>
+    <table class="table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Disclosure Location</th>
+        <th>Is Disclosed?</th>
+        <th>Disclosure opinion</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody id="featureList">
+    </tbody>
+  </table>
+
+
+
+    <h2>Test:</h2>
+    <input type='text' id='features' title="Selected features"/>
+    <button id="myBtn" onclick="highlight(0, 10)">Test</button>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='patentee.js')}}"></script>
