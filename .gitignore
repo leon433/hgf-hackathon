@@ -4,4 +4,6 @@ flask/
 *.pyc
 *.pyc
 *.pyc
+*_migration.py
 .idea/workspace.xml
+
