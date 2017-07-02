@@ -12,6 +12,7 @@ function getText() {
         openModal();
     }
 }
+getAndPrintFeatures();
 
 function highlight(startOffset, endOffset)
 {
