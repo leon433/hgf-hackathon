@@ -9,6 +9,10 @@ from .models import FeatureModel
 def index():
     return render_template('index.html')
 
+@app.route('/expert1')
+def expert1():
+    return render_template('expert1.html')
+
 
 @app.route('/patentee1', methods=['GET', 'POST'])
 def saveClaimFeature():
@@ -58,17 +62,20 @@ def getFeatures():
     entries = FeatureModel.query.all()
     entriesList = []
     for entry in entries:
-        separatedLocation =[]
+        separatedLocation = []
         if entry.disclosureLocationA is not None:
             separatedLocation = [x.strip() for x in entry.disclosureLocationA.split(',')]
         else:
+            separatedLocation = [0, 0]
+
+        if len(separatedLocation) < 2:
             separatedLocation = [0, 0]
 
         entryDict = {
             'id': entry.id,
             'feature': entry.feature,
             'disclosureLocation1': separatedLocation[0],
-            'disclosureLocation2': separatedLocation[1],
+            'disclosureLocation2': separatedLocation[1] or separatedLocation[0],
             'isDisclosed': entry.isDisclosedA,
             'disclosureOpinion': entry.disclosureOpinionA}
         entriesList.append(entryDict)
